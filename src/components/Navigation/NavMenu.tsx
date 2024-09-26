@@ -13,10 +13,11 @@ export default function NavMenu() {
       </SignedIn>
       <SignedOut>
         <div className="flex gap-x-4">
+          <Link className="hidden sm:block shrink-0" href="/pricing">
+            <Button className="font-bold" variant="link">Pricing</Button>
+          </Link>
           <Link className="hidden sm:block shrink-0" href="/signin">
-            <Button className="font-bold" variant="link">
-              Sign In
-            </Button>
+            <Button className="font-bold" variant="link">Sign In</Button>
           </Link>
           <Link className="shrink-0" href="/signup">
             <Button>Sign Up</Button>

@@ -8,7 +8,7 @@ function Navigation() {
         <LogoLabel
           label={
             <span className="flex items-center">
-              <span>React Flow</span>
+              <span>Test Diagram</span>
               <span className="bg-pink-100 text-xs rounded-full text-primary px-1 py-0.5 ml-1">Pro</span>
             </span>
           }
