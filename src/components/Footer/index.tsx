@@ -15,16 +15,16 @@ const categories = [
   {
     title: 'React Flow Pro',
     items: [
-      { route: '/', title: 'Dashboard' },
+      { route: '/', title: 'Home' },
+      { route: '/demo', title: 'Demo' },
       { route: '/signin', title: 'Sign In' },
       { route: '/signup', title: 'Sign Up' },
-      { route: '/reset-password', title: 'Reset Password' },
     ],
   },
   {
     title: 'More Info',
     items: [
-      { route: 'https://reactflow.dev/pro', title: 'Pricing' },
+      { route: '/pricing', title: 'Pricing' },
       { route: 'https://reactflow.dev/pro/examples', title: 'Pro Examples' },
       { route: 'https://reactflow.dev/pro/case-studies', title: 'Case Studies' },
       { route: 'https://reactflow.dev/pro/enterprise', title: 'Enterprise' },
@@ -36,7 +36,7 @@ const categories = [
       { route: 'https://xyflow.com/contact', title: 'Contact Us' },
       { route: 'https://xyflow.com/blog', title: 'Blog' },
       { route: 'https://xyflow.com/about', title: 'About' },
-      { route: 'https://xyflow.com/open-source', title: 'Open Source' },
+      { route: '/reset-password', title: 'Reset Password' },
     ],
   },
   {

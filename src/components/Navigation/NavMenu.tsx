@@ -12,7 +12,17 @@ export default function NavMenu() {
         <UserMenu />
       </SignedIn>
       <SignedOut>
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-6">
+          {/* @todo edit hidden in mobile*/ }
+          <Link className="hidden sm:block shrink-0" href="/">
+            <Button className="font-bold" variant="link">Home</Button>
+          </Link>
+          <Link className="hidden sm:block shrink-0" href="/about">
+            <Button className="font-bold" variant="link">About us</Button>
+          </Link>
+          <Link className="hidden sm:block shrink-0" href="/demo">
+            <Button className="font-bold" variant="link">Demo</Button>
+          </Link>
           <Link className="hidden sm:block shrink-0" href="/pricing">
             <Button className="font-bold" variant="link">Pricing</Button>
           </Link>

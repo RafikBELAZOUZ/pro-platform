@@ -5,11 +5,6 @@
     "permanent": true
   },
   {
-    "source": "/dashboard",
-    "destination": "/",
-    "permanent": true
-  },
-  {
     "source": "/billing",
     "destination": "/account",
     "permanent": true
