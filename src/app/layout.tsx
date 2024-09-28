@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ClientProviders>
         {isProduction() && <Fathom />}
       </body>
-      <GoogleAnalytics gaId="G-Q8L6LF2BFV" />
+      <GoogleAnalytics gaId="G-6D7BFN93R7" />
     </html>
   );
 }
