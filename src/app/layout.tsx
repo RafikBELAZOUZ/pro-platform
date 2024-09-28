@@ -10,9 +10,9 @@ import '@/styles/globals.css';
 
 // @todo add more metadata here
 export const metadata = {
-  title: 'React Flow Pro',
+  title: 'Test Diagram',
   description:
-    'Build Better Node-Based UIs with React Flow. By subscribing to React Flow Pro you are securing the maintanance and development of our open source libraries.',
+    'Build Better Node-Based UIs with Test Diagram. By subscribing to Test Diagram you are securing the maintanance and development of our open source libraries.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

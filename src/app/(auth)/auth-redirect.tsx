@@ -10,7 +10,7 @@ const AuthRedirect = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuthenticationStatus();
 
   if (isAuthenticated) {
-    redirect('/');
+    redirect('/dashboard');
   }
 
   return children;

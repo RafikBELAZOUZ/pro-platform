@@ -32,7 +32,7 @@ const AuthFormWrapper = ({
         {showHero && (
           <div className="hidden lg:block flex-1 max-w-xl mt-6 relative p-4">
             <Heading className="mb-4 font-black">
-              Build Better Node-Based UIs with <span className="text-react">React Flow</span>
+              Build Better Node-Based UIs with <span className="text-react">Test Diagram</span>
             </Heading>
             <Text size="lg">
               By subscribing to React Flow Pro you are securing the maintenance and development of our open source
