@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useCallback, useState } from 'react';
 import {
   ReactFlow,
@@ -69,4 +67,3 @@ function Diagram() {
 }
 
 export default Diagram;
-
