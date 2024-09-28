@@ -2,6 +2,7 @@ import Footer from '@/components/Footer';
 import ClientProviders from '@/components/Providers';
 import Navigation from '@/components/Navigation';
 import Fathom from '@/components/Fathom';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { NtDapperFont } from '@/fonts';
 import { isProduction } from '@/utils';
@@ -14,6 +15,8 @@ export const metadata = {
   description:
     'Build Better Node-Based UIs with Test Diagram. By subscribing to Test Diagram you are securing the maintanance and development of our open source libraries.',
 };
+
+// @todo add analytics on button click, signups...
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ClientProviders>
         {isProduction() && <Fathom />}
       </body>
+      <GoogleAnalytics gaId="G-6D7BFN93R7" />
     </html>
   );
 }

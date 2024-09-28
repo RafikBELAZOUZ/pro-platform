@@ -28,27 +28,6 @@ async function sendWelcomeMail(email: string, plan: PaidSubscriptionPlan) {
   return true;
 }
 
-async function sendSubscriptionNotification({
-  email,
-  plan,
-}: {
-  email: string;
-  plan: PaidSubscriptionPlan | FreeSubscriptionPlan;
-}) {
-  if (!email || !plan) {
-    return false;
-  }
-
-  const website = email.match(/\@(.*)$/g)?.[0] || '';
-
-  const message =
-    plan === FreeSubscriptionPlan.Student || plan === FreeSubscriptionPlan.OSS
-      ? `👩🏽‍🎓 new ${plan.toUpperCase()} sign up: ${email}`
-      : `🎉 new sub: <https://${website}> [${plan.toUpperCase()}]`;
-
-  return await sendDiscordNotification(message);
-}
-
 export default async function handleSubscriptionChange(req: Request, res: Response) {
   // Check header to make sure the request comes from Hasura
   if (req.headers['nhost-webhook-secret'] !== process.env.NHOST_WEBHOOK_SECRET) {
