@@ -16,7 +16,7 @@ const Sidebar = () => {
     <div className="shrink-0">
       <div className="lg:sticky lg:top-4 flex flex-wrap gap-2 lg:flex-col lg:pr-4">
         <SidebarItem icon={<Squares2X2Icon />} href="/dashboard" label="Dashboard" />
-        <SidebarItem icon={<PencilSquareIcon />} href="/dashboard/testdiagram" label="Test Diagrams" />
+        <SidebarItem icon={<PencilSquareIcon />} href="/testdiagram" label="Test Diagrams" />
         <SidebarItem icon={<RocketLaunchIcon />} href="/dashboard/examples" label="Pro Examples" matchSubPaths />
         <SidebarItem icon={<ChatBubbleLeftRightIcon />} href="/dashboard/support" label="Support" />
         <Subscribed requireAdminSubscription>

@@ -16,7 +16,7 @@ export const metadata = {
     'Build Better Node-Based UIs with Test Diagram. By subscribing to Test Diagram you are securing the maintanance and development of our open source libraries.',
 };
 
-// @todo add analytics on button click, signups...
+// @todo add analytics on button click,
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

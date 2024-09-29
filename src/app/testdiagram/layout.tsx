@@ -8,20 +8,13 @@ import { NtDapperFont } from '@/fonts';
 import { isProduction } from '@/utils';
 
 import '@/styles/globals.css';
+import RootLayout from '@/app/layout';
 
 export default function DiagramLayout({ children }) {
   return (
-    <html lang="en" className={NtDapperFont.className}>
-      <body className="bg-white">
-        <ClientProviders>
-          <div className="bg-white">
-            <Navigation />
-            <div className="p-4 relative min-h-[calc(100vh-200px)]">{children}</div>
-            <Footer />
-          </div>
-        </ClientProviders>
-        {isProduction() && <Fathom />}
-      </body>
-    </html>
+    <div>
+        {children}
+    </div>
+    
   );
 }
