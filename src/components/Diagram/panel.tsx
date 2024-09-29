@@ -1,13 +1,14 @@
 import { Node } from 'reactflow'
 import { AddNodePanel, TextPanel } from '../Diagram/new-node'
+import useStore from './store'
 
 const selector = (state: { selectedNode: Node | null }) => ({
 	selectedNode: state.selectedNode,
 })
 
 export const Panel = () => {
-	//const { selectedNode } = useStore(selector, shallow)
-	//const CurrentPanel = getPanel(selectedNode?.type || '')
+	const { selectedNode } = useStore()
+	const CurrentPanel = getPanel(selectedNode?.type || '')
 
 	return (
 		<div className=" bg-white h-full border-gray-200 border">
