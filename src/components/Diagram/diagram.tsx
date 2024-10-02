@@ -50,17 +50,7 @@ function Diagram() {
     setNodes((nds) => nds.concat(newNode)); // Add new node to the state
   }, [nodes, setNodes]);
 
-  // Function to manually add a new node
-  const addNode = () => {
-    if (nodeLabel.trim() === '') return; // Do not add empty labels
-    const newNode = {
-      id: (nodes.length + 1).toString(), // Ensure unique ID
-      position: { x: Math.random() * 250, y: Math.random() * 250 }, // Random position
-      data: { label: nodeLabel }, // Use the input label
-    };
-    setNodes((nds) => [...nds, newNode]);
-    setNodeLabel(''); // Clear the input field after adding
-  };
+  
 
   return (
     <div style={{ height: '80vh', width: '100%', border: '1px solid black' }}>
@@ -78,17 +68,6 @@ function Diagram() {
         <Controls />
         <Background />
       </ReactFlow>
-
-      <div style={{ marginTop: '10px' }}>
-        <input
-          type="text"
-          value={nodeLabel}
-          onChange={(e) => setNodeLabel(e.target.value)} // Update label state on input change
-          placeholder="Enter node label"
-          style={{ marginRight: '10px' }}
-        />
-        <button onClick={addNode}>Add Node</button>
-      </div>
     </div>
   );
 }
