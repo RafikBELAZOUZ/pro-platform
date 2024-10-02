@@ -19,7 +19,6 @@ export const Panel = () => {
 		<div className="bg-white h-full border-gray-200 border">
 			{/* Render the CurrentPanel component */}
 			<CurrentPanel />
-			<div>efhue oezfjezo oezifjezo</div>
 		</div>
 	);
 };
