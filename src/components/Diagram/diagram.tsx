@@ -53,7 +53,7 @@ function Diagram() {
   
 
   return (
-    <div style={{ height: '90%', width: '100%', border: 'none', margin: '0px', padding:'0px' }}>
+    <div style={{ width: '100%', border: 'none', margin: '0px', padding:'0px' }} className="h-[calc(100vh-65px)]">
       <ReactFlow
         nodes={nodes}
         edges={edges}
