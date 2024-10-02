@@ -11,7 +11,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-} from 'reactflow';
+} from '@xyflow/react';
 import { nodesConfig } from './diagram-data-loader';
 
 // Node data type
@@ -23,8 +23,8 @@ export type NodeData = {
 // Node types
 export type NodeTypes = 'textNode';
 
-// Diagram component
-const useStore = () => {
+// Hook to manage the state for nodes and edges
+const useDiagram = () => {
   // State for nodes, edges, and selected node
   const [nodes, setNodes] = useState<Node[]>(nodesConfig.initialNodes);
   const [edges, setEdges] = useState<Edge[]>(nodesConfig.initialEdges);
@@ -82,6 +82,16 @@ const useStore = () => {
     );
   }, []);
 
+  return {
+    nodes,
+    edges,
+    selectedNode,
+    setSelectedNode: handleSetSelectedNode,
+    onNodesChange: handleNodesChange,
+    onEdgesChange: handleEdgesChange,
+    onConnect: handleConnect,
+    updateNodeLabel,
+  };
 };
 
-export default useStore;
+export default useDiagram;
