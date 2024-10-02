@@ -53,7 +53,7 @@ function Diagram() {
   
 
   return (
-    <div style={{ height: '80vh', width: '100%', border: '1px solid black' }}>
+    <div style={{ height: '90%', width: '100%', border: 'none', margin: '0px', padding:'0px' }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}

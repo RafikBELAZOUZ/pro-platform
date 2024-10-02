@@ -9,7 +9,7 @@ export const dynamic = 'no-layout';
 function DiagramBuilder() {
   return (
     <div className='flex'>
-      <div className='h-[calc(100vh_-_48px)] flex-grow'>
+      <div className='h-[calc(100vh_-_48px)] flex-grow m-0 p-0'>
         <Diagram/>
       </div>
 
