@@ -8,34 +8,49 @@ import {
   useEdgesState,
   addEdge,
 } from '@xyflow/react';
-
 import '@xyflow/react/dist/style.css';
-
-const initialNodes = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
-];
-
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+import { nodesConfig } from './diagram-data-loader';
 
 function Diagram() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(nodesConfig.initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(nodesConfig.initialEdges);
   const [nodeLabel, setNodeLabel] = useState(''); // State to hold the label for new nodes
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
-  // Function to add a new node
-  const addNode = () => {
-    if (nodeLabel.trim() === '') return; // Do not add empty labels
-    const newNode = {
-      id: (nodes.length + 1).toString(), // Ensure unique ID
-      position: { x: Math.random() * 250, y: Math.random() * 250 }, // Random position
-      data: { label: nodeLabel }, // Use the input label
+  // Handle drag over to allow node drop
+  const onDragOver = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move'; // Indicate that an element is movable
+  }, []);
+
+  // Handle drop event to add a new node
+  const onDrop = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+
+    // Get the canvas bounds to calculate the position of the new node
+    const reactFlowBounds = event.currentTarget.getBoundingClientRect();
+    const nodeType = event.dataTransfer.getData('application/reactflow');
+
+    if (!nodeType) return; // Ensure something was actually dragged
+
+    const position = {
+      x: event.clientX - reactFlowBounds.left,
+      y: event.clientY - reactFlowBounds.top,
     };
-    setNodes((nds) => [...nds, newNode]);
-    setNodeLabel(''); // Clear the input field after adding
-  };
+
+    // Create new node based on the dragged node type
+    const newNode = {
+      id: `${nodes.length + 1}`, // Unique ID for the new node
+      type: nodeType, // Type of node dragged (can be used for different node types)
+      position,
+      data: { label: `${nodeType} node` }, // Customize label based on the type
+    };
+
+    setNodes((nds) => nds.concat(newNode)); // Add new node to the state
+  }, [nodes, setNodes]);
+
+  
 
   return (
     <div style={{ height: '80vh', width: '100%', border: '1px solid black' }}>
@@ -45,23 +60,14 @@ function Diagram() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onDragOver={onDragOver} // Allow dropping elements
+        onDrop={onDrop} // Handle drop to create a new node
         style={{ width: '100%', height: '100%' }} // Ensures ReactFlow takes full height and width
       >
         <MiniMap />
         <Controls />
         <Background />
       </ReactFlow>
-
-      <div style={{ marginTop: '10px' }}>
-        <input
-          type="text"
-          value={nodeLabel}
-          onChange={(e) => setNodeLabel(e.target.value)} // Update label state on input change
-          placeholder="Enter node label"
-          style={{ marginRight: '10px' }}
-        />
-        <button onClick={addNode}>Add Node</button>
-      </div>
     </div>
   );
 }

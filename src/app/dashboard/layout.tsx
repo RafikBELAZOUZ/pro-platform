@@ -5,6 +5,8 @@ import Sidebar from '@/components/Sidebar';
 import { PageLoader } from '@/components/Loader';
 import AuthProtected from './auth-protected';
 
+import '@/styles/globals.css';
+
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<PageLoader />}>
