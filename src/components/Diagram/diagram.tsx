@@ -24,7 +24,7 @@ function Diagram() {
     event.dataTransfer.dropEffect = 'move'; // Indicate that an element is movable
   }, []);
 
-  // Handle drop event to add a new node
+  // @todo it doesnt drop well when scroll in diagram
   const onDrop = useCallback((event: React.DragEvent) => {
     event.preventDefault();
 
@@ -53,7 +53,7 @@ function Diagram() {
   
 
   return (
-    <div style={{ height: '90%', width: '100%', border: 'none'}} className="h-[calc(100vh-200px)]">
+    <div style={{ height: '90%', width: '100%', border: 'none', margin: '0px', padding:'0px' }} className="h-[calc(100vh-200px)]">
       <ReactFlow
         nodes={nodes}
         edges={edges}
