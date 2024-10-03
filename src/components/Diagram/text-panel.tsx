@@ -1,47 +1,38 @@
+import { useState, useEffect } from 'react';
 // import { ArrowLeft } from 'lucide-react';
 import { Node } from '@xyflow/react';
-import React, { useState, useEffect } from 'react';
 
-// Props to receive selectedNode, updateNodeLabel, and setSelectedNode from parent
-type TextPanelProps = {
+interface TextPanelProps {
   selectedNode: Node | null;
   updateNodeLabel: (nodeId: string, nodeVal: string) => void;
   setSelectedNode: (node: Node | null) => void;
-};
+}
 
-export const TextPanel: React.FC<TextPanelProps> = ({
-  selectedNode,
-  updateNodeLabel,
-  setSelectedNode,
-}) => {
-  const [textValue, setTextValue] = useState<string | undefined>(selectedNode?.data.label);
+export const TextPanel = ({ selectedNode, updateNodeLabel, setSelectedNode }: TextPanelProps) => {
+  const [label, setLabel] = useState('');
 
   useEffect(() => {
-    // Update local state whenever selectedNode changes
-    setTextValue(selectedNode?.data.label);
+    if (selectedNode) {
+      setLabel(selectedNode.data.label || '');
+    }
   }, [selectedNode]);
 
-  const handleChange = (value: string) => {
-    setTextValue(value);
+  function handleChange(value: string) {
+    setLabel(value);
     if (selectedNode) {
       updateNodeLabel(selectedNode.id, value);
     }
-  };
+  }
 
   return (
     <>
       <div className="p-2 font-semibold flex">
-        <button
-          onClick={() => {
-            setSelectedNode(null);
-          }}
-        >
+        <button onClick={() => setSelectedNode(null)}>
           {/* <ArrowLeft /> */}
         </button>
         <h2 className="flex-grow text-center">Message</h2>
       </div>
       <hr />
-
       <div className="p-2 mt-3">
         <label className="block text-sm font-medium text-start text-gray-700" htmlFor="message">
           Text
@@ -49,8 +40,7 @@ export const TextPanel: React.FC<TextPanelProps> = ({
         <div className="mt-1">
           <textarea
             rows={4}
-            key={selectedNode?.id}
-            value={textValue}
+            value={label}
             name="message"
             id="message"
             onChange={(e) => handleChange(e.target.value)}

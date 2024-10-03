@@ -80,6 +80,7 @@ function Diagram() {
         onDragOver={onDragOver} // Allow dropping elements
         onDrop={onDrop} // Handle drop to create a new node
         style={{ width: '100%', height: '100%' }} // Ensures ReactFlow takes full height and width
+        nodeTypes={nodesConfig.nodeTypes}
       >
         <MiniMap />
         <Controls />
