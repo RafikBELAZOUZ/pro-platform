@@ -7,6 +7,8 @@ import {
   useNodesState,
   useEdgesState,
   addEdge,
+  useReactFlow,
+  ReactFlowProvider,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodesConfig } from './diagram-data-loader';
@@ -14,8 +16,10 @@ import { nodesConfig } from './diagram-data-loader';
 function Diagram() {
   const [nodes, setNodes, onNodesChange] = useNodesState(nodesConfig.initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(nodesConfig.initialEdges);
-  const [nodeLabel, setNodeLabel] = useState(''); // State to hold the label for new nodes
 
+  // Get React Flow instance to access zoom and pan data
+  const reactFlowInstance = useReactFlow();
+  
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
   // Handle drag over to allow node drop
@@ -24,36 +28,49 @@ function Diagram() {
     event.dataTransfer.dropEffect = 'move'; // Indicate that an element is movable
   }, []);
 
-  // @todo it doesnt drop well when scroll in diagram
-  const onDrop = useCallback((event: React.DragEvent) => {
-    event.preventDefault();
+  // Handle drop event to add a new node with zoom and scroll adjustments
+  const onDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
 
-    // Get the canvas bounds to calculate the position of the new node
-    const reactFlowBounds = event.currentTarget.getBoundingClientRect();
-    const nodeType = event.dataTransfer.getData('application/reactflow');
+      const nodeType = event.dataTransfer.getData('application/reactflow');
+      if (!nodeType) return; // Ensure something was actually dragged
 
-    if (!nodeType) return; // Ensure something was actually dragged
+      // Get the bounding rect of the diagram
+      const reactFlowBounds = event.currentTarget.getBoundingClientRect();
 
-    const position = {
-      x: event.clientX - reactFlowBounds.left,
-      y: event.clientY - reactFlowBounds.top,
-    };
+      // Calculate the mouse position within the canvas, adjusted for scrolling and zoom
+      const mouseX = event.clientX - reactFlowBounds.left;
+      const mouseY = event.clientY - reactFlowBounds.top;
 
-    // Create new node based on the dragged node type
-    const newNode = {
-      id: `${nodes.length + 1}`, // Unique ID for the new node
-      type: nodeType, // Type of node dragged (can be used for different node types)
-      position,
-      data: { label: `${nodeType} node` }, // Customize label based on the type
-    };
+      // Get the transform (viewport pan and zoom) from React Flow instance
+      const { x: viewportX, y: viewportY, zoom } = reactFlowInstance.getViewport();
 
-    setNodes((nds) => nds.concat(newNode)); // Add new node to the state
-  }, [nodes, setNodes]);
+      // Adjust the mouse position to account for the pan and zoom
+      const position = {
+        x: (mouseX - viewportX) / zoom,
+        y: (mouseY - viewportY) / zoom,
+      };
 
-  
+      // Create new node based on the dragged node type
+      const newNode = {
+        id: `${nodes.length + 1}`, // Unique ID for the new node
+        type: nodeType, // Type of node dragged (can be used for different node types)
+        position, // Adjusted position with pan/zoom
+        data: { label: `${nodeType} node` }, // Customize label based on the type
+      };
+
+      // Add the new node to the state
+      setNodes((nds) => nds.concat(newNode));
+    },
+    [nodes, setNodes, reactFlowInstance]
+  );
 
   return (
-    <div style={{ height: '90%', width: '100%', border: 'none', margin: '0px', padding:'0px' }} className="h-[calc(100vh-200px)]">
+    <div
+      style={{ width: '100%', border: 'none', margin: '0px', padding: '0px' }}
+      className="h-[calc(100vh-65px)]"
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -72,4 +89,11 @@ function Diagram() {
   );
 }
 
-export default Diagram;
+// Wrap Diagram in ReactFlowProvider to ensure React Flow state is available
+const DiagramWrapper = () => (
+  <ReactFlowProvider>
+    <Diagram />
+  </ReactFlowProvider>
+);
+
+export default DiagramWrapper;

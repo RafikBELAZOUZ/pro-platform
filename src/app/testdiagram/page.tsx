@@ -13,7 +13,7 @@ function DiagramBuilder() {
         <Diagram/>
       </div>
 
-      <div className="hidden basis-[300px] md:block lg:basis-[350px]">
+      <div className="hidden basis-[300px] md:block lg:basis-[350px] m-0 p-0">
         <div className='bg-white h-full border-gray-200 border'>
           <Panel/>
         </div>
