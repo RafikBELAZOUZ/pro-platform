@@ -16,7 +16,7 @@ export const Panel = () => {
 	const CurrentPanel = getPanel(selectedNode?.type || '');
 
 	return (
-		<div className="bg-white h-full border-gray-200 border">
+		<div className="bg-white h-full border-gray-200 border border-t-0">
 			{/* Render the CurrentPanel component */}
 			<CurrentPanel />
 		</div>
