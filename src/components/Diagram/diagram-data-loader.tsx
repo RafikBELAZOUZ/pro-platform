@@ -7,6 +7,8 @@ import {
   useNodesState,
   useEdgesState,
   addEdge,
+  Edge,
+  Node,
 } from '@xyflow/react';
 import {TextNode} from "./text-node"
 
