@@ -24,7 +24,7 @@ export const AddNodePanel = () => {
           onDragStart={(event) => onDragStart(event, 'textNode')}
           draggable
         >
-          <span className="font-semibold text-primary">Message</span>
+          <span className="font-semibold text-primary">Test Step</span>
         </div>
       </div>
     </aside>
