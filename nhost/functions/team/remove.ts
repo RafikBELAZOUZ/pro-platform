@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { authPost } from '../_utils/middleware';
 import { removeTeamMember } from '../_utils/graphql/team-subscriptions';
 import { updateSeatQuantity } from '../_utils/stripe';
+import { getIncludedSeats, getSeatPricing } from '../_utils/graphql/team-subscriptions';
 
 async function removeTeamMemberHandler(req: Request, res: Response) {
   const { email } = req.body;
@@ -18,4 +19,20 @@ async function removeTeamMemberHandler(req: Request, res: Response) {
   return res.status(200).send({ message: `removed ${removedCount} team member` });
 }
 
-export default authPost(removeTeamMemberHandler);
+export const removeTeamMemberHandlerwithAuth = authPost(removeTeamMemberHandler);
+
+
+async function getTeamStatus(req: Request, res: Response) {
+  const userId = res.locals.userId;
+  const includedSeats = await getIncludedSeats(userId);
+
+  try {
+    const pricing = await getSeatPricing(userId);
+    return res.status(200).send({ includedSeats, ...pricing });
+  } catch (err) {
+    console.log(err);
+    return res.status(200).send({ includedSeats });
+  }
+}
+
+export const getTeamStatusWithAUth = authPost(getTeamStatus);

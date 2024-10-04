@@ -3,7 +3,7 @@ import SubscriptionFeature from '@/components/SubscriptionFeature';
 function HomePage() {
   return (
     <>
-      <div>Im home</div>
+      <div>Im home deleteFunctions</div>
     </>
   );
 }

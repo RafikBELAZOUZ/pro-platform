@@ -5,6 +5,7 @@ import {
   Cog8ToothIcon,
   SparklesIcon,
   ChatBubbleLeftRightIcon,
+  PencilSquareIcon
 } from '@heroicons/react/24/outline';
 
 import { NotSubscribed, Subscribed } from '@/components/SubscriptionStatus';
@@ -14,17 +15,18 @@ const Sidebar = () => {
   return (
     <div className="shrink-0">
       <div className="lg:sticky lg:top-4 flex flex-wrap gap-2 lg:flex-col lg:pr-4">
-        <SidebarItem icon={<Squares2X2Icon />} href="/" label="Dashboard" />
-        <SidebarItem icon={<RocketLaunchIcon />} href="/examples" label="Pro Examples" matchSubPaths />
-        <SidebarItem icon={<ChatBubbleLeftRightIcon />} href="/support" label="Support" />
+        <SidebarItem icon={<Squares2X2Icon />} href="/dashboard" label="Dashboard" />
+        <SidebarItem icon={<PencilSquareIcon />} href="/testdiagram" label="Test Diagrams" />
+        <SidebarItem icon={<RocketLaunchIcon />} href="/dashboard/examples" label="Pro Examples" matchSubPaths />
+        <SidebarItem icon={<ChatBubbleLeftRightIcon />} href="/dashboard/support" label="Support" />
         <Subscribed requireAdminSubscription>
-          <SidebarItem icon={<UsersIcon />} href="/team" label="Team" />
+          <SidebarItem icon={<UsersIcon />} href="/dashboard/team" label="Team" />
         </Subscribed>
-        <SidebarItem icon={<Cog8ToothIcon />} href="/account" label="Account" />
+        <SidebarItem icon={<Cog8ToothIcon />} href="/dashboard/account" label="Account" />
         <NotSubscribed>
           <SidebarItem
             icon={<SparklesIcon />}
-            href="/subscribe"
+            href="/dashboard/subscribe"
             label="Subscribe"
             className="!text-react hover:!bg-pink-100"
           />
