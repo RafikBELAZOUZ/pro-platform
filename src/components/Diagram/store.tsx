@@ -1,4 +1,3 @@
-import React, { useState, useCallback } from 'react';
 import {
   Connection,
   Edge,
@@ -12,86 +11,88 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from '@xyflow/react';
+import { create } from 'zustand';
 import { nodesConfig } from './diagram-data-loader';
 
-// Node data type
 export type NodeData = {
   label: string;
   isInitial?: boolean;
 };
 
-// Node types
 export type NodeTypes = 'textNode';
 
-// Hook to manage the state for nodes and edges
-const useDiagram = () => {
-  // State for nodes, edges, and selected node
-  const [nodes, setNodes] = useState<Node[]>(nodesConfig.initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(nodesConfig.initialEdges);
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+type RFState = {
+  nodes: Node[];
+  edges: Edge[];
+  selectedNode: Node | null;
+  setNodes: (node: Node) => void;
+  onNodesChange: OnNodesChange;
+  onEdgesChange: OnEdgesChange;
+  onConnect: OnConnect;
+  updateNodeLabel: (nodeId: string, nodeVal: string) => void;
+  setSelectedNode: (node: Node | null) => void;
+};
 
-  // Function to handle node selection
-  const handleSetSelectedNode = useCallback((node: Node | null) => {
-    setSelectedNode(node);
+// Zustand store creation
+const useStore = create<RFState>((set, get) => ({
+  nodes: nodesConfig.initialNodes,
+  edges: nodesConfig.initialEdges,
+  selectedNode: null,
 
-    // Deselect the currently selected node if node is null
+  setSelectedNode: (node: Node | null) => {
+    set({ selectedNode: node });
+    
     if (node === null) {
-      const currentlySelectedNode = nodes.find((n) => n.selected === true);
-      if (currentlySelectedNode) {
-        handleNodesChange([
+      const selectedNode = get().nodes.find((n) => n.selected === true);
+      if (selectedNode) {
+        get().onNodesChange([
           {
             type: 'select',
-            id: currentlySelectedNode.id,
+            id: selectedNode.id,
             selected: false,
           },
         ]);
       }
     }
-  }, [nodes]);
+  },
 
-  // Function to handle changes to nodes
-  const handleNodesChange: OnNodesChange = useCallback((changes: NodeChange[]) => {
-    setNodes((currentNodes) => applyNodeChanges(changes, currentNodes));
-  }, []);
+  setNodes: (node: Node) => {
+    set((state) => ({
+      nodes: [...state.nodes, node],
+    }));
+  },
 
-  // Function to handle changes to edges
-  const handleEdgesChange: OnEdgesChange = useCallback((changes: EdgeChange[]) => {
-    setEdges((currentEdges) => applyEdgeChanges(changes, currentEdges));
-  }, []);
+  onNodesChange: (changes: NodeChange[]) => {
+    set((state) => ({
+      nodes: applyNodeChanges(changes, state.nodes),
+    }));
+  },
 
-  // Function to handle new connections
-  const handleConnect: OnConnect = useCallback((connection: Connection) => {
-    setEdges((currentEdges) => addEdge(connection, currentEdges));
-  }, []);
+  onEdgesChange: (changes: EdgeChange[]) => {
+    set((state) => ({
+      edges: applyEdgeChanges(changes, state.edges),
+    }));
+  },
 
-  // Function to update a node's label
-  const updateNodeLabel = useCallback((nodeId: string, nodeVal: string) => {
-    setNodes((currentNodes) =>
-      currentNodes.map((node) => {
+  onConnect: (connection: Connection) => {
+    set((state) => ({
+      edges: addEdge(connection, state.edges),
+    }));
+  },
+
+  updateNodeLabel: (nodeId: string, nodeVal: string) => {
+    set((state) => ({
+      nodes: state.nodes.map((node) => {
         if (node.id === nodeId) {
-          return {
-            ...node,
-            data: {
-              ...node.data,
-              label: nodeVal,
-            },
+          node.data = {
+            ...node.data,
+            label: nodeVal,
           };
         }
         return node;
-      })
-    );
-  }, []);
+      }),
+    }));
+  },
+}));
 
-  return {
-    nodes,
-    edges,
-    selectedNode,
-    setSelectedNode: handleSetSelectedNode,
-    onNodesChange: handleNodesChange,
-    onEdgesChange: handleEdgesChange,
-    onConnect: handleConnect,
-    updateNodeLabel,
-  };
-};
-
-export default useDiagram;
+export default useStore;
