@@ -59,7 +59,7 @@ function Signup() {
   return (
     <>
       <Head>
-        <meta name="robots" content="noindex,nofollow" />
+        {/* <meta name="robots" content="noindex,nofollow" /> */}
       </Head>
       <form onSubmit={handleSubmit}>
         <div className="space-y-4">

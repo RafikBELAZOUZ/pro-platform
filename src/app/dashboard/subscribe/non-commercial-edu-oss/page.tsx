@@ -4,7 +4,7 @@ import { Card, CardHeader } from '@xyflow/xy-ui';
 import SignUp from './signup';
 
 export const metadata = {
-  robots: 'noindex, nofollow',
+//   robots: 'noindex, nofollow',
 };
 
 const SignUpEduPage = () => {
