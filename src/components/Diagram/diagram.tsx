@@ -14,11 +14,10 @@ import {
 	Node,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { nodesConfig } from './diagram-data-loader';
-
 import { useShallow } from 'zustand/react/shallow'
 import { Panel } from './panel'
 // import { Header } from './panel'
+import { nodesConfig } from './diagram-data-loader';
 import useStore from './store'
 import { handleDragOver, handleOnDrop } from './utils'
 

@@ -29,10 +29,18 @@ export function handleOnDrop(
 			return
 		}
 
-		const position = reactFlowInstance.project({
-			x: event.clientX - reactFlowBounds.left,
-			y: event.clientY - reactFlowBounds.top,
-		})
+		// Calculate the mouse position within the canvas, adjusted for scrolling and zoom
+        const mouseX = event.clientX - reactFlowBounds.left;
+        const mouseY = event.clientY - reactFlowBounds.top;
+  
+        // Get the transform (viewport pan and zoom) from React Flow instance
+        const { x: viewportX, y: viewportY, zoom } = reactFlowInstance.getViewport();
+  
+        // Adjust the mouse position to account for the pan and zoom
+        const position = {
+          x: (mouseX - viewportX) / zoom,
+          y: (mouseY - viewportY) / zoom,
+        };
 		const newNode = {
 			id: getId(),
 			type,
