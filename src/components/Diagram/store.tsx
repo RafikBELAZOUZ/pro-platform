@@ -82,17 +82,20 @@ const useStore = create<RFState>((set, get) => ({
 
   updateNodeLabel: (nodeId: string, nodeVal: string) => {
     set((state) => ({
-      nodes: state.nodes.map((node) => {
-        if (node.id === nodeId) {
-          node.data = {
-            ...node.data,
-            label: nodeVal,
-          };
-        }
-        return node;
-      }),
+        nodes: state.nodes.map((node) => {
+            // Return a new object to avoid mutation
+            return node.id === nodeId
+                ? {
+                    ...node,
+                    data: {
+                        ...node.data,
+                        label: nodeVal,
+                    },
+                }
+                : node; // Keep the original node if not matching
+        }),
     }));
-  },
+},
 }));
 
 export default useStore;
