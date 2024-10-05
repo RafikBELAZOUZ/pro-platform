@@ -1,1 +1,1 @@
-export type NodeTypes = 'textNode'
+export type NodeTypes = 'textNode' | 'valueNode';

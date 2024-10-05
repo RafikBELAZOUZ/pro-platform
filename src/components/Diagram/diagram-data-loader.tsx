@@ -1,4 +1,5 @@
 import {TextNode} from "@/components/Diagram/index-text-node"
+import {ValueNode} from "./nodes/value-node"
 import {
   Edge,
   Node,
@@ -13,7 +14,7 @@ export const nodesConfig = {
 	initialNodes: [
 		{
 			id: '1',
-			type: 'textNode',
+			type: 'valueNode',
 			data: {
 				label: 'hey check this video out\nhttps://youtu.be/dQw4w9WgXcQ',
 				isInitial: true,
@@ -43,6 +44,7 @@ export const nodesConfig = {
 	initialEdges: [{ id: 'e1-1', source: '1', target: '2' }] as Edge[],
 	nodeTypes: {
 		textNode: TextNode,
+        valueNode: ValueNode,
 	} as any,
 }
 

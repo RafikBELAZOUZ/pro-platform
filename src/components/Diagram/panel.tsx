@@ -2,6 +2,7 @@ import useStore from './store'
 import { Node } from '@xyflow/react';
 import { AddNodePanel } from '../Diagram/new-node';
 import { TextPanel } from './text-panel';
+import { ValuePanel } from './panels/value-panel';
 import { useShallow } from 'zustand/react/shallow'
 
 const selector = (state: { selectedNode: Node | null }) => ({
@@ -23,6 +24,9 @@ const getPanel = (type: string) => {
 	// when list of panels grows, use a switch statement or a map
 	if (type === 'textNode') {
 		return TextPanel
+	}
+    if (type === 'valueNode') {
+		return ValuePanel
 	}
 	return AddNodePanel
 }
