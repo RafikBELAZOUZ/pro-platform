@@ -1,38 +1,49 @@
-import React, { useCallback, useState } from 'react';
+import {TextNode} from "@/components/Diagram/index-text-node"
 import {
-  ReactFlow,
-  MiniMap,
-  Controls,
-  Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
   Edge,
   Node,
+  Position
 } from '@xyflow/react';
-import {TextNode} from "./text-node"
 
 import '@xyflow/react/dist/style.css';
 
 // @todo load data from database
 
 export const nodesConfig = {
-    initialNodes: [
-    { id: '1', position: { x: 0, y: 0 }, data: { label: 'Add user',
-    isInitial: true, }, type: 'textNode' },
-    { id: '2', position: { x: 0, y: 100 }, data: { label: 'Write name',
-    isInitial: true, }, type: 'textNode' },
-    { id: '3', position: { x: 100, y: 300 }, data: { label: 'Click submit',
-    isInitial: true, }, type: 'textNode' },
-    ] as Node[],
-
-    initialEdges: [
-        { id: 'e1-2', source: '1', target: '2' },
-        { id: 'e2-3', source: '2', target: '3' },
-    ]as Edge[],
-
-    nodeTypes: {
+	initialNodes: [
+		{
+			id: '1',
+			type: 'textNode',
+			data: {
+				label: 'hey check this video out\nhttps://youtu.be/dQw4w9WgXcQ',
+				isInitial: true,
+			},
+			position: { x: 300, y: 400 },
+			sourcePosition: Position.Right,
+		},
+		{
+			id: '2',
+			type: 'textNode',
+			data: {
+				label: 'wow, that was a great video\n😳',
+			},
+			position: { x: 600, y: 300 },
+			targetPosition: Position.Left,
+		},
+        {
+			id: '3',
+			type: 'textNode',
+			data: {
+				label: 'rgergergerg',
+			},
+			position: { x: 700, y: 500 },
+			targetPosition: Position.Left,
+		},
+	] as Node[],
+	initialEdges: [{ id: 'e1-1', source: '1', target: '2' }] as Edge[],
+	nodeTypes: {
 		textNode: TextNode,
 	} as any,
 }
+
 
