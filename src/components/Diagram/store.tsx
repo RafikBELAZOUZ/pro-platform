@@ -1,3 +1,4 @@
+import { nodesConfig } from './diagram-data-loader';
 import {
   Connection,
   Edge,
@@ -12,7 +13,6 @@ import {
   applyNodeChanges,
 } from '@xyflow/react';
 import { create } from 'zustand';
-import { nodesConfig } from './diagram-data-loader';
 
 export type NodeData = {
   label: string;

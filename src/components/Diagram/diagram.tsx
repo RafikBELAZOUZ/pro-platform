@@ -9,92 +9,101 @@ import {
   addEdge,
   useReactFlow,
   ReactFlowProvider,
+  BackgroundVariant,
+  Edge,
+	Node,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { nodesConfig } from './diagram-data-loader';
 
-function Diagram() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(nodesConfig.initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(nodesConfig.initialEdges);
+import { useShallow } from 'zustand/react/shallow'
+import { Panel } from './panel'
+// import { Header } from './panel'
+import useStore from './store'
+import { handleDragOver, handleOnDrop } from './utils'
 
-  // Get React Flow instance to access zoom and pan data
-  const reactFlowInstance = useReactFlow();
-  
-  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
+const selector = (state: {
+	nodes: Node[]
+	edges: Edge[]
+	onNodesChange: any
+	onEdgesChange: any
+	onConnect: any
+	setSelectedNode: (node: Node | null) => void
+	setNodes: (node: Node) => void
+}) => ({
+	nodes: state.nodes,
+	edges: state.edges,
+	onNodesChange: state.onNodesChange,
+	onEdgesChange: state.onEdgesChange,
+	onConnect: state.onConnect,
+	setSelectedNode: state.setSelectedNode,
+	setNodes: state.setNodes,
+})
 
-  // Handle drag over to allow node drop
-  const onDragOver = useCallback((event: React.DragEvent) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move'; // Indicate that an element is movable
-  }, []);
+export default function App() {
+	const reactFlowWrapper = React.useRef<any>(null)
+	const [reactFlowInstance, setReactFlowInstance] = React.useState<any>(null)
 
-  // Handle drop event to add a new node with zoom and scroll adjustments
-  const onDrop = useCallback(
-    (event: React.DragEvent) => {
-      event.preventDefault();
+	const {
+		nodes,
+		edges,
+		onNodesChange,
+		onEdgesChange,
+		onConnect,
+		setSelectedNode,
+		setNodes,
+	} = useStore(useShallow(selector))
 
-      const nodeType = event.dataTransfer.getData('application/reactflow');
-      if (!nodeType) return; // Ensure something was actually dragged
+	const onDragOver = React.useCallback(
+		(event: React.DragEvent<HTMLDivElement>) => {
+			handleDragOver(event)
+		},
+		[]
+	)
 
-      // Get the bounding rect of the diagram
-      const reactFlowBounds = event.currentTarget.getBoundingClientRect();
+	const onDrop = React.useCallback(
+		(event: any) => {
+			handleOnDrop(event, reactFlowWrapper, reactFlowInstance, setNodes)
+		},
+		[reactFlowInstance, setNodes]
+	)
 
-      // Calculate the mouse position within the canvas, adjusted for scrolling and zoom
-      const mouseX = event.clientX - reactFlowBounds.left;
-      const mouseY = event.clientY - reactFlowBounds.top;
-
-      // Get the transform (viewport pan and zoom) from React Flow instance
-      const { x: viewportX, y: viewportY, zoom } = reactFlowInstance.getViewport();
-
-      // Adjust the mouse position to account for the pan and zoom
-      const position = {
-        x: (mouseX - viewportX) / zoom,
-        y: (mouseY - viewportY) / zoom,
-      };
-
-      // Create new node based on the dragged node type
-      const newNode = {
-        id: `${nodes.length + 1}`, // Unique ID for the new node
-        type: nodeType, // Type of node dragged (can be used for different node types)
-        position, // Adjusted position with pan/zoom
-        data: { label: `${nodeType} node` }, // Customize label based on the type
-      };
-
-      // Add the new node to the state
-      setNodes((nds) => nds.concat(newNode));
-    },
-    [nodes, setNodes, reactFlowInstance]
-  );
-
-  return (
-    <div
-      style={{ width: '100%', border: 'none', margin: '0px', padding: '0px' }}
-      className="h-[calc(100vh-65px)]"
-    >
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onDragOver={onDragOver} // Allow dropping elements
-        onDrop={onDrop} // Handle drop to create a new node
-        style={{ width: '100%', height: '100%' }} // Ensures ReactFlow takes full height and width
-        nodeTypes={nodesConfig.nodeTypes}
-      >
-        <MiniMap />
-        <Controls />
-        <Background />
-      </ReactFlow>
-    </div>
-  );
+	return (
+		<ReactFlowProvider>
+			{/* <Header /> */}
+			<main className="flex">
+				<div
+					className="h-[calc(100vh_-_48px)] flex-grow"
+					ref={reactFlowWrapper}
+				>
+					<ReactFlow
+						nodes={nodes}
+						edges={edges}
+						onNodesChange={onNodesChange}
+						onEdgesChange={onEdgesChange}
+						onNodeClick={(event: React.MouseEvent, node: Node) => {
+							setSelectedNode(node)
+						}}
+						onConnect={onConnect}
+						onPaneClick={() => {
+							setSelectedNode(null)
+						}}
+						onDragOver={onDragOver}
+						onDrop={onDrop}
+						fitView
+						fitViewOptions={{ maxZoom: 1 }}
+						onInit={setReactFlowInstance}
+						snapToGrid={true}
+						nodeTypes={nodesConfig.nodeTypes}
+					>
+						<Controls />
+						<Background variant={BackgroundVariant.Dots} gap={12} size={1} />
+					</ReactFlow>
+				</div>
+				<div className="hidden basis-[300px] md:block lg:basis-[350px]">
+					<Panel />
+				</div>
+			</main>
+		</ReactFlowProvider>
+	)
 }
-
-// Wrap Diagram in ReactFlowProvider to ensure React Flow state is available
-const DiagramWrapper = () => (
-  <ReactFlowProvider>
-    <Diagram />
-  </ReactFlowProvider>
-);
-
-export default DiagramWrapper;

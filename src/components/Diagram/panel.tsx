@@ -1,6 +1,6 @@
+import useStore from './store'
 import { Node } from '@xyflow/react';
 import { AddNodePanel } from '../Diagram/new-node';
-import useStore from './store';
 import { TextPanel } from './text-panel';
 import { useShallow } from 'zustand/react/shallow'
 
