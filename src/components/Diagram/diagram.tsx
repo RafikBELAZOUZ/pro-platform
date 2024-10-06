@@ -38,7 +38,7 @@ const selector = (state: {
 	onConnect: state.onConnect,
 	setSelectedNode: state.setSelectedNode,
 	setNodes: state.setNodes,
-    setSelectedEdge: state.setSelectedEdge
+    setSelectedEdge: state.setSelectedEdge,
 })
 
 export default function App() {
@@ -52,8 +52,8 @@ export default function App() {
 		onEdgesChange,
 		onConnect,
 		setSelectedNode,
-        setSelectedEdge,
 		setNodes,
+        setSelectedEdge,
 	} = useStore(useShallow(selector))
 
 	const onDragOver = React.useCallback(

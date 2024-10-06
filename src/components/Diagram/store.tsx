@@ -32,6 +32,7 @@ type RFState = {
   onConnect: OnConnect;
   updateNodeLabel: (nodeId: string, nodeVal: string) => void;
   setSelectedNode: (node: Node | null) => void;
+  setSelectedEdge: (edge: Edge | null) => void;
 };
 
 // Zustand store creation
