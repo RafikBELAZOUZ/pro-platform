@@ -25,6 +25,7 @@ type RFState = {
   nodes: Node[];
   edges: Edge[];
   selectedNode: Node | null;
+  selectedEdge: Edge | null;
   setNodes: (node: Node) => void;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
@@ -38,6 +39,7 @@ const useStore = create<RFState>((set, get) => ({
   nodes: nodesConfig.initialNodes,
   edges: nodesConfig.initialEdges,
   selectedNode: null,
+  selectedEdge: null,
 
   setSelectedNode: (node: Node | null) => {
     set({ selectedNode: node });
@@ -54,6 +56,38 @@ const useStore = create<RFState>((set, get) => ({
         ]);
       }
     }
+  },
+
+  setSelectedEdge: (edge: Edge | null) => {
+    const currentEdges = get().edges;
+
+    // Update the style of the previously selected edge to reset it
+    const updatedEdges = currentEdges.map((e) => {
+      if (e.id === get().selectedEdge?.id) {
+        return {
+          ...e,
+          style: { ...e.style, stroke: 'black', strokeWidth: 1 }, // Reset previous selected edge style
+        };
+      }
+      return e;
+    });
+
+    // Update the new selected edge
+    const newEdges = updatedEdges.map((e) => {
+      if (e.id === edge?.id) {
+        return {
+          ...e,
+          style: { ...e.style, stroke: 'red', strokeWidth: 3 }, // Highlight the newly selected edge
+        };
+      }
+      return e;
+    });
+
+    // Set the selected edge and update the edges in the state
+    set({
+      edges: newEdges,
+      selectedEdge: edge,
+    });
   },
 
   setNodes: (node: Node) => {
