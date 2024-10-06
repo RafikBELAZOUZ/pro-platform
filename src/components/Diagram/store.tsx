@@ -24,6 +24,7 @@ export type NodeTypes = 'textNode';
 type RFState = {
   nodes: Node[];
   edges: Edge[];
+  editMode: boolean;
   selectedNode: Node | null;
   selectedEdge: Edge | null;
   setNodes: (node: Node) => void;
@@ -41,6 +42,7 @@ const useStore = create<RFState>((set, get) => ({
   edges: nodesConfig.initialEdges,
   selectedNode: null,
   selectedEdge: null,
+  editMode: false,
 
   setSelectedNode: (node: Node | null) => {
     set({ selectedNode: node });
@@ -58,6 +60,14 @@ const useStore = create<RFState>((set, get) => ({
       }
     }
   },
+
+  highlightNode: (node: Node | null) => {
+    
+  },
+
+  highlightEdge: (edge: Edge | null) => {
+    
+    },
 
   setSelectedEdge: (edge: Edge | null) => {
     const currentEdges = get().edges;
