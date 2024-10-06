@@ -29,10 +29,10 @@ export const TextNode = memo((node: Node) => {
 				'bg-white border-[1px] shadow-2xl border-transparent rounded-md min-w-[200px] text-start'
 		>
 			<span className="py-1 px-3 text-xs font-semibold bg-primary text-primary-foreground hover:bg-primary/90 block rounded-t-md">
-				Send Message
+            {data.label}
 			</span>
 			<div className="py-2 px-3 min-h-[32px]">
-				<p className="text-xs whitespace-pre-wrap">{data.label}</p>
+				<p className="text-xs whitespace-pre-wrap">{data.details}</p>
 			</div>
 			{/* remove target edge from the first node */}
 			{!data.isInitial && <Handle type="target" position={Position.Left} />}
