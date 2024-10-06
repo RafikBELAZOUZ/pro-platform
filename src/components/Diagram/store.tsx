@@ -62,13 +62,34 @@ const useStore = create<RFState>((set, get) => ({
     }
   },
 
-  highlightNode: (node: Node | null) => {
+  highlightNode: (node: Node, mode: Mode | null) => {
+    if(mode === Mode.TESTCASE){
+
+    }
     
   },
 
-  highlightEdge: (edge: Edge | null) => {
-    
-    },
+  highlightEdge: (edge: Edge, mode: Mode | null) => {
+    if(mode === Mode.TESTCASE){
+      const currentEdges = get().edges;
+
+      const newEdges = currentEdges.map((e) => {
+        if (e.id === edge?.id) {
+          return {
+            ...e,
+            style: { ...e.style, stroke: 'red', strokeWidth: 3 }, // Highlight the newly selected edge
+          };
+        }
+        return e;
+      });
+  
+      // Set the selected edge and update the edges in the state
+      set({
+        edges: newEdges,
+        selectedEdge: edge,
+      });
+    }
+  },
 
   setSelectedEdge: (edge: Edge | null) => {
     const currentEdges = get().edges;
