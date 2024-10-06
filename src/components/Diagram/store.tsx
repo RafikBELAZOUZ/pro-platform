@@ -13,6 +13,7 @@ import {
   applyNodeChanges,
 } from '@xyflow/react';
 import { create } from 'zustand';
+import { Mode } from '@/types';
 
 export type NodeData = {
   label: string;
@@ -24,7 +25,7 @@ export type NodeTypes = 'textNode';
 type RFState = {
   nodes: Node[];
   edges: Edge[];
-  editMode: boolean;
+  mode: Mode;
   selectedNode: Node | null;
   selectedEdge: Edge | null;
   setNodes: (node: Node) => void;
@@ -42,7 +43,7 @@ const useStore = create<RFState>((set, get) => ({
   edges: nodesConfig.initialEdges,
   selectedNode: null,
   selectedEdge: null,
-  editMode: false,
+  mode: Mode.READONLY,
 
   setSelectedNode: (node: Node | null) => {
     set({ selectedNode: node });

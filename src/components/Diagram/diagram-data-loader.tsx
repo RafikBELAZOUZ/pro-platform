@@ -1,4 +1,4 @@
-import {TextNode} from "@/components/Diagram/index-text-node"
+import {TextNode} from "./text-node"
 import {ValueNode} from "./nodes/value-node"
 import {
   Edge,
