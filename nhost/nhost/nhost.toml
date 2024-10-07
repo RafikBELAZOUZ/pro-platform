@@ -169,16 +169,6 @@ issuer = 'nhost'
 [postgres]
 version = '14.5-20221009-1'
 
-[provider]
-[provider.smtp]
-user = 'noreply@reactflow.dev'
-password = '{{ secrets.SMTP_PASSWORD }}'
-sender = 'noreply@reactflow.dev'
-host = 'smtp-moklick.alwaysdata.net'
-port = 465
-secure = true
-method = 'LOGIN'
-
 [storage]
 version = '0.3.0'
 
