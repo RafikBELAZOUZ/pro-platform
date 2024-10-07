@@ -16,10 +16,6 @@ name = 'MAILJET_APIKEY_PUBLIC'
 value = '{{ secrets.MAILJET_APIKEY_PUBLIC }}'
 
 [[global.environment]]
-name = 'DISCORD_NOTIFICATIONS_WEBHOOK'
-value = '{{ secrets.DISCORD_NOTIFICATIONS_WEBHOOK }}'
-
-[[global.environment]]
 name = 'UPSTASH_REDIS_URL'
 value = '{{ secrets.UPSTASH_REDIS_URL }}'
 
