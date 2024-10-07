@@ -49,6 +49,7 @@ httpPoolSize = 100
 [functions.node]
 version = 18
 
+[auth]
 [auth.redirections]
 clientUrl = 'http://localhost:3000'
 allowedUrls = ['http://localhost:3000', 'https://*.vercel.app', 'https://*.netlify.app', 'https://pro.reactflow.dev']
