@@ -29,6 +29,7 @@ const selector = (state: {
 	onConnect: any
 	setSelectedNode: (node: Node | null) => void
 	setNodes: (node: Node) => void
+    setSelectedEdge: (edge: Edge | null) => void
 }) => ({
 	nodes: state.nodes,
 	edges: state.edges,
@@ -37,6 +38,7 @@ const selector = (state: {
 	onConnect: state.onConnect,
 	setSelectedNode: state.setSelectedNode,
 	setNodes: state.setNodes,
+    setSelectedEdge: state.setSelectedEdge,
 })
 
 export default function App() {
@@ -51,6 +53,7 @@ export default function App() {
 		onConnect,
 		setSelectedNode,
 		setNodes,
+        setSelectedEdge,
 	} = useStore(useShallow(selector))
 
 	const onDragOver = React.useCallback(
@@ -82,6 +85,9 @@ export default function App() {
 						onEdgesChange={onEdgesChange}
 						onNodeClick={(event: React.MouseEvent, node: Node) => {
 							setSelectedNode(node)
+						}}
+                        onEdgeClick={(event: React.MouseEvent, edge: Edge) => {
+							setSelectedEdge(edge)
 						}}
 						onConnect={onConnect}
 						onPaneClick={() => {

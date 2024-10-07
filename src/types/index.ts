@@ -12,6 +12,12 @@ export enum Environment {
   PRODUCTION = 'production',
 }
 
+export enum Mode {
+    READONLY = 'readOnly',
+    EDIT = 'edit',
+    TESTCASE = 'testCase',
+  }
+
 export enum Framework {
   REACT = 'react',
 }

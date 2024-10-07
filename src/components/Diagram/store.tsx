@@ -13,6 +13,7 @@ import {
   applyNodeChanges,
 } from '@xyflow/react';
 import { create } from 'zustand';
+import { Mode } from '@/types';
 
 export type NodeData = {
   label: string;
@@ -24,13 +25,16 @@ export type NodeTypes = 'textNode';
 type RFState = {
   nodes: Node[];
   edges: Edge[];
+  mode: Mode;
   selectedNode: Node | null;
+  selectedEdge: Edge | null;
   setNodes: (node: Node) => void;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
   updateNodeLabel: (nodeId: string, nodeVal: string) => void;
   setSelectedNode: (node: Node | null) => void;
+  setSelectedEdge: (edge: Edge | null) => void;
 };
 
 // Zustand store creation
@@ -38,6 +42,8 @@ const useStore = create<RFState>((set, get) => ({
   nodes: nodesConfig.initialNodes,
   edges: nodesConfig.initialEdges,
   selectedNode: null,
+  selectedEdge: null,
+  mode: Mode.READONLY,
 
   setSelectedNode: (node: Node | null) => {
     set({ selectedNode: node });
@@ -54,6 +60,67 @@ const useStore = create<RFState>((set, get) => ({
         ]);
       }
     }
+  },
+
+  highlightNode: (node: Node, mode: Mode | null) => {
+    if(mode === Mode.TESTCASE){
+
+    }
+    
+  },
+
+  highlightEdge: (edge: Edge, mode: Mode | null) => {
+    if(mode === Mode.TESTCASE){
+      const currentEdges = get().edges;
+
+      const newEdges = currentEdges.map((e) => {
+        if (e.id === edge?.id) {
+          return {
+            ...e,
+            style: { ...e.style, stroke: 'red', strokeWidth: 3 }, // Highlight the newly selected edge
+          };
+        }
+        return e;
+      });
+  
+      // Set the selected edge and update the edges in the state
+      set({
+        edges: newEdges,
+        selectedEdge: edge,
+      });
+    }
+  },
+
+  setSelectedEdge: (edge: Edge | null) => {
+    const currentEdges = get().edges;
+
+    // Update the style of the previously selected edge to reset it
+    const updatedEdges = currentEdges.map((e) => {
+      if (e.id === get().selectedEdge?.id) {
+        return {
+          ...e,
+          style: { ...e.style, stroke: 'black', strokeWidth: 1 }, // Reset previous selected edge style
+        };
+      }
+      return e;
+    });
+
+    // Update the new selected edge
+    const newEdges = updatedEdges.map((e) => {
+      if (e.id === edge?.id) {
+        return {
+          ...e,
+          style: { ...e.style, stroke: 'red', strokeWidth: 3 }, // Highlight the newly selected edge
+        };
+      }
+      return e;
+    });
+
+    // Set the selected edge and update the edges in the state
+    set({
+      edges: newEdges,
+      selectedEdge: edge,
+    });
   },
 
   setNodes: (node: Node) => {
