@@ -23,6 +23,10 @@ value = '{{ secrets.UPSTASH_REDIS_URL }}'
 name = 'UPSTASH_REDIS_TOKEN'
 value = '{{ secrets.UPSTASH_REDIS_TOKEN }}'
 
+[[global.environment]]
+name = 'adg'
+value = 'zfazf'
+
 [hasura]
 adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
 webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
