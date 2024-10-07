@@ -121,11 +121,6 @@ enabled = false
 [auth.method.oauth.facebook]
 enabled = false
 
-[auth.method.oauth.github]
-enabled = true
-clientId = '{{ secrets.GITHUB_CLIENT_ID }}'
-clientSecret = '{{ secrets.GITHUB_CLIENT_SECRET }}'
-
 [auth.method.oauth.gitlab]
 enabled = false
 
@@ -171,7 +166,3 @@ version = '14.5-20221009-1'
 
 [storage]
 version = '0.3.0'
-
-[observability]
-[observability.grafana]
-adminPassword = '{{ secrets.GRAFANA_ADMIN_PASSWORD }}'
