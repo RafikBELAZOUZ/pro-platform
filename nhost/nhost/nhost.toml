@@ -16,10 +16,6 @@ name = 'MAILJET_APIKEY_PUBLIC'
 value = '{{ secrets.MAILJET_APIKEY_PUBLIC }}'
 
 [[global.environment]]
-name = 'DISCORD_NOTIFICATIONS_WEBHOOK'
-value = '{{ secrets.DISCORD_NOTIFICATIONS_WEBHOOK }}'
-
-[[global.environment]]
 name = 'UPSTASH_REDIS_URL'
 value = '{{ secrets.UPSTASH_REDIS_URL }}'
 
@@ -28,7 +24,7 @@ name = 'UPSTASH_REDIS_TOKEN'
 value = '{{ secrets.UPSTASH_REDIS_TOKEN }}'
 
 [hasura]
-version = 'v2.25.1-ce'
+version = 'v2.38.0-ce'
 adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
 webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
 
@@ -55,7 +51,7 @@ httpPoolSize = 100
 version = 18
 
 [auth]
-version = '0.19.1'
+version = '0.34.0'
 
 [auth.redirections]
 clientUrl = 'http://localhost:3000'
@@ -121,11 +117,6 @@ enabled = false
 [auth.method.oauth.facebook]
 enabled = false
 
-[auth.method.oauth.github]
-enabled = true
-clientId = '{{ secrets.GITHUB_CLIENT_ID }}'
-clientSecret = '{{ secrets.GITHUB_CLIENT_SECRET }}'
-
 [auth.method.oauth.gitlab]
 enabled = false
 
@@ -169,18 +160,8 @@ issuer = 'nhost'
 [postgres]
 version = '14.5-20221009-1'
 
-[provider]
-[provider.smtp]
-user = 'noreply@reactflow.dev'
-password = '{{ secrets.SMTP_PASSWORD }}'
-sender = 'noreply@reactflow.dev'
-host = 'smtp-moklick.alwaysdata.net'
-port = 465
-secure = true
-method = 'LOGIN'
-
 [storage]
-version = '0.3.0'
+version = '0.6.1'
 
 [observability]
 [observability.grafana]
