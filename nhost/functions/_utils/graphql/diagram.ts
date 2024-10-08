@@ -26,5 +26,5 @@ query GetProjectByUserId($userId: uuid!) {
 
 export async function getUsersProjects(userId: string): Promise<string> {
     const response = await GraphQLClient.request(GET_PROJECTS, { userId });
-    return response.users?.[0]?.id;
+    return response.project?;
   }
