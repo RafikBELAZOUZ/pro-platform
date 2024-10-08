@@ -7,9 +7,9 @@ import {getUsersProjects} from '../_utils/graphql/diagram'
 
 
 export async function getUsersProject(userId: string) {
-    const { email } = (await getUsersProjects(userId)) ?? {};
+    const { id, description } = (await getUsersProjects(userId)) ?? {};
     
-    return res.status(200).send({ message: `removed ${email} team member` });
+    return res.status(200).send({ message: `This is ${description} project` });
 }
 
 export const getUsersProjectsWithAuth = authPost(getUsersProject);
