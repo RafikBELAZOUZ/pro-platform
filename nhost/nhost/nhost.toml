@@ -24,7 +24,7 @@ name = 'UPSTASH_REDIS_TOKEN'
 value = '{{ secrets.UPSTASH_REDIS_TOKEN }}'
 
 [hasura]
-version = 'v2.25.1-ce'
+version = 'v2.38.0-ce'
 adminSecret = '{{ secrets.HASURA_GRAPHQL_ADMIN_SECRET }}'
 webhookSecret = '{{ secrets.NHOST_WEBHOOK_SECRET }}'
 
@@ -51,7 +51,7 @@ httpPoolSize = 100
 version = 18
 
 [auth]
-version = '0.19.1'
+version = '0.34.0'
 
 [auth.redirections]
 clientUrl = 'http://localhost:3000'
