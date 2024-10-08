@@ -1,0 +1,7 @@
+table:
+  name: nodes
+  schema: public
+object_relationships:
+  - name: sub_project
+    using:
+      foreign_key_constraint_on: sub_project_id

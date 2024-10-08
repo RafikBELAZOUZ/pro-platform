@@ -1,0 +1,1 @@
+CREATE TABLE public.sub_project (id uuid DEFAULT gen_random_uuid() NOT NULL, project_id uuid NOT NULL, description text DEFAULT 'Un sous projet' NOT NULL, PRIMARY KEY (id), FOREIGN KEY (project_id) REFERENCES public.project (id) ON UPDATE RESTRICT ON DELETE RESTRICT);
