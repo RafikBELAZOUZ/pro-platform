@@ -24,7 +24,7 @@ export const Panel = () => {
 	const CurrentPanel = getPanel(selectedNode?.type || '')
 
     //@todo
-    deleteAccount()
+    // deleteAccount()
 
 	return (
 		<div className=" bg-white h-full border-gray-200 border border-t-0">
