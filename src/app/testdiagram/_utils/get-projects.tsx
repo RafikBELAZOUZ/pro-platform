@@ -32,6 +32,8 @@ const TeamRemoveComponent = () => {
         try {
           const res = await nhostFunction('/team/remove', { userId });
           setResponse(res);
+          console.log(res)
+          console.log(response)
         } catch (error) {
           console.error('Error fetching data:', error);
           setResponse({ error: 'Error fetching data' });
