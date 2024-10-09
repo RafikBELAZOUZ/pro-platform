@@ -6,13 +6,13 @@ import { getIncludedSeats, getSeatPricing } from '../_utils/graphql/team-subscri
 import {getUsersProjects} from '../_utils/graphql/diagram'
 
 
-export async function getUsersProject(userId: string) {
-    const { id, description } = (await getUsersProjects(userId)) ?? {};
-    
-    return res.status(200).send({ message: `This is ${description} project` });
+const getUsersProject = async (userId: string) =>  {
+    const response = await getUsersProjects(userId)
+    console.log("response = " + response)
+    return response
 }
 
-export const getUsersProjectsWithAuth = authPost(getUsersProject);
+export default authPost(getUsersProject);
 
 // async function removeTeamMemberHandler(req: Request, res: Response) {
 //   const { email } = req.body;

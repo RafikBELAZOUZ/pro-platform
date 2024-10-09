@@ -3,9 +3,6 @@ import { gql } from 'graphql-request';
 
 import GraphQLClient from './client';
 
-export async function createUser({ email }: { email: string }) {
-  
-}
 const GET_USER_BY_MAIL = gql`
   query GetUserByMail($email: citext!) {
     users(where: { email: { _eq: $email } }) {
@@ -26,5 +23,6 @@ query GetProjectByUserId($userId: uuid!) {
 
 export async function getUsersProjects(userId: string): Promise<string> {
     const response = await GraphQLClient.request(GET_PROJECTS, { userId });
-    return response.project?;
+    // return response.project[0].description;
+    return "projet 1"
   }
