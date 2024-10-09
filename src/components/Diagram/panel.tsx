@@ -11,21 +11,10 @@ const selector = (state: { selectedNode: Node | null }) => ({
 	selectedNode: state.selectedNode,
 })
 
-const deleteAccount = async () => {
-    const userId = useUserId();
-    const nhostFunction = useNhostFunction();
-    const description = await nhostFunction('/team/remove', {userId: userId});
-    console.log("fefef")
-    console.log(description)
-}
-
 export const Panel = () => {
 	const { selectedNode } = useStore(useShallow(selector))
 	const CurrentPanel = getPanel(selectedNode?.type || '')
-
-    //@todo
-    // deleteAccount()
-
+    
 	return (
 		<div className=" bg-white h-full border-gray-200 border border-t-0">
 			<CurrentPanel />
