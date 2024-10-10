@@ -7,6 +7,7 @@ export default function useNhostFunction() {
 
   const callNhostFunction = useCallback(
     async (url: string, body: Record<string, any>) => {
+console.log("iwant", body)
       const response = await fetch(`${nhostClient.functions.url}${url}`, {
         method: 'POST',
         headers: {
@@ -18,6 +19,7 @@ export default function useNhostFunction() {
           revalidate: 0,
         },
       });
+      console.log("iwant", body)
 
       const data = await response.json();
 

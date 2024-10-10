@@ -5,11 +5,15 @@ import { updateSeatQuantity } from '../_utils/stripe';
 import { getIncludedSeats, getSeatPricing } from '../_utils/graphql/team-subscriptions';
 import {getUsersProjects} from '../_utils/graphql/diagram'
 
+const getUsersProject = async (req: Request, res: Response) => {
+    const userIds = res.locals.userId;
+    const { userId } = req.body;
+    console.log("userid", userId)
+    console.log("userid",userIds)
 
-const getUsersProject = async (userId: string) =>  {
     const response = await getUsersProjects(userId)
     console.log("response = " + response)
-    return response
+    res.status(200).send(`Hello ${response}!`)
 }
 
 export default authPost(getUsersProject);

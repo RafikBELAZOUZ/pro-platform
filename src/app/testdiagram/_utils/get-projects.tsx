@@ -26,6 +26,7 @@ import useNhostFunction from '@/hooks/useNhostFunction';
 const TeamRemoveComponent = () => {
     const [response, setResponse] = useState(null);
     const userId = useUserId();
+    console.log("id ", userId)
     const nhostFunction = useNhostFunction();
   
     const fetchData = useCallback(async () => {
