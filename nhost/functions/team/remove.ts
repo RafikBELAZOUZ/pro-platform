@@ -27,8 +27,6 @@ const testfunc = async (req: Request, res: Response) => {
 
 export const testfuncHandle = authPost(testfunc);
 
-export default authPost(getUsersProject);
-
 const testfuncr = async (req: Request, res: Response) => {
     const { userId } = req.body;
     console.log("UserId: ", userId)
