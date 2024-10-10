@@ -27,6 +27,19 @@ const testfunc = async (req: Request, res: Response) => {
 
 export const testfuncHandle = authPost(testfunc);
 
+export default authPost(getUsersProject);
+
+const testfuncr = async (req: Request, res: Response) => {
+    const { userId } = req.body;
+    console.log("UserId: ", userId)
+
+    const response = await getUsersProjects(userId)
+    console.log("Response: " + JSON.stringify(response))
+    res.status(200).json(response)
+}
+
+export const testfuncHandler = authPost(testfuncr);
+
 // async function removeTeamMemberHandler(req: Request, res: Response) {
 //   const { email } = req.body;
 //   const userId = res.locals.userId;
