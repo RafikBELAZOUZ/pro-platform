@@ -7,11 +7,11 @@ import {getUsersProjects} from '../_utils/graphql/diagram'
 
 const getUsersProject = async (req: Request, res: Response) => {
     const { userId } = req.body;
-    console.log("userid", userId)
+    console.log("UserId: ", userId)
 
     const response = await getUsersProjects(userId)
-    console.log("response = " + response)
-    res.status(200).send({ message: `Hello ${response}!` })
+    console.log("Response: " + JSON.stringify(response))
+    res.status(200).json(response)
 }
 
 export default authPost(getUsersProject);

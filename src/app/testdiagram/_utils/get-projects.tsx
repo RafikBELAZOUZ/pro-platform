@@ -49,7 +49,7 @@ const TeamRemoveComponent = () => {
       return (
         <div>
           {response ? (
-            <pre>{JSON.stringify(response, null, 2)}</pre>
+            <pre>{JSON.stringify(response, null, 2)} {response[0].description}</pre>
           ) : (
             'Loading...'
           )}
