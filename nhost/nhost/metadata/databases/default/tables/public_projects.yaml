@@ -11,5 +11,12 @@ array_relationships:
       foreign_key_constraint_on:
         column: project_id
         table:
-          name: sub_project
+          name: sub_projects
+          schema: public
+  - name: sub_projects
+    using:
+      foreign_key_constraint_on:
+        column: project_id
+        table:
+          name: sub_projects
           schema: public

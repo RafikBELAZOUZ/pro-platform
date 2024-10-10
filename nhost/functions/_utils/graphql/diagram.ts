@@ -5,7 +5,7 @@ import GraphQLClient from './client';
 
 const GET_PROJECTS = gql`
 query GetProjectByUserId($userId: uuid!) {
-    project(where: { user_id: { _eq: $userId } }) {
+    projects(where: { user_id: { _eq: $userId } }) {
       id
       description
     }
@@ -14,5 +14,5 @@ query GetProjectByUserId($userId: uuid!) {
 
 export async function getUsersProjects(userId: string): Promise<string> {
     const response = await GraphQLClient.request(GET_PROJECTS, { userId });
-    return response.project;
+    return response.projects;
   }
