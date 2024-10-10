@@ -1,0 +1,15 @@
+table:
+  name: sub_projects
+  schema: public
+object_relationships:
+  - name: project
+    using:
+      foreign_key_constraint_on: project_id
+array_relationships:
+  - name: nodes
+    using:
+      foreign_key_constraint_on:
+        column: sub_project_id
+        table:
+          name: nodes
+          schema: public

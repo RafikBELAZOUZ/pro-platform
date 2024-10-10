@@ -10,7 +10,7 @@
 - "!include public_edges.yaml"
 - "!include public_nodes.yaml"
 - "!include public_projects.yaml"
-- "!include public_sub_project.yaml"
+- "!include public_sub_projects.yaml"
 - "!include public_team_subscriptions.yaml"
 - "!include public_user_subscriptions.yaml"
 - "!include storage_buckets.yaml"
