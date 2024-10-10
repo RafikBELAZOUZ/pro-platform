@@ -4,6 +4,8 @@ import { AddNodePanel } from '../Diagram/new-node';
 import { TextPanel } from './text-panel';
 import { ValuePanel } from './panels/value-panel';
 import { useShallow } from 'zustand/react/shallow'
+import useNhostFunction from '@/hooks/useNhostFunction';
+import { useUserEmail, useUserId } from '@nhost/nextjs';
 
 const selector = (state: { selectedNode: Node | null }) => ({
 	selectedNode: state.selectedNode,
@@ -12,7 +14,7 @@ const selector = (state: { selectedNode: Node | null }) => ({
 export const Panel = () => {
 	const { selectedNode } = useStore(useShallow(selector))
 	const CurrentPanel = getPanel(selectedNode?.type || '')
-
+    
 	return (
 		<div className=" bg-white h-full border-gray-200 border border-t-0">
 			<CurrentPanel />

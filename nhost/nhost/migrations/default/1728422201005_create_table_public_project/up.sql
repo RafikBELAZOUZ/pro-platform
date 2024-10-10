@@ -1,0 +1,1 @@
+CREATE TABLE public.project (id uuid DEFAULT gen_random_uuid() NOT NULL, user_id uuid NOT NULL, description text DEFAULT 'Un project monsieur', PRIMARY KEY (id), FOREIGN KEY (user_id) REFERENCES auth.users (id) ON UPDATE RESTRICT ON DELETE RESTRICT);

@@ -3,6 +3,7 @@
 import React, { useCallback, useState } from 'react';
 import Diagram from "../../components/Diagram/diagram"
 import {Panel} from "../../components/Diagram/panel"
+import TeamRemoveComponent from "./_utils/get-projects"
 
 export const dynamic = 'no-layout';
 
@@ -18,6 +19,8 @@ function DiagramBuilder() {
           <Panel/>
         </div>
       </div> */}
+
+      <TeamRemoveComponent/>
     </div>
   );
 }

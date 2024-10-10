@@ -55,7 +55,7 @@ version = '0.34.0'
 
 [auth.redirections]
 clientUrl = 'http://localhost:3000'
-allowedUrls = ['http://localhost:3000', 'https://*.vercel.app', 'https://*.netlify.app', 'https://pro.reactflow.dev']
+allowedUrls = ['http://localhost:3000', 'https://*.vercel.app']
 
 [auth.signUp]
 enabled = true

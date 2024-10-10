@@ -1,0 +1,1 @@
+CREATE TABLE public.nodes (id uuid DEFAULT gen_random_uuid() NOT NULL, sub_project_id uuid NOT NULL, type varchar NOT NULL, position_x float4 NOT NULL, position_y float4 NOT NULL, created_at timestamp DEFAULT now() NOT NULL, data jsonb NOT NULL, PRIMARY KEY (id), FOREIGN KEY (sub_project_id) REFERENCES public.sub_project (id) ON UPDATE RESTRICT ON DELETE RESTRICT);
